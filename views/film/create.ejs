@@ -1,0 +1,46 @@
+<% layout('../layout.ejs') -%>
+
+    <head>
+        <link rel="stylesheet" href="stylesheets/film/create.css">
+        <script src="/javascripts/film/create.js"></script>
+    </head>
+    <form ng-controller="createCtrl">
+        <h1 style="text-align: center">Thêm phim mới</h1>
+        <div class="form-margin">
+            <div class="row">
+                <div class="col-xs-6 col-md-3 col-md-offset-2" style="text-align: center; font-size: 20px">
+                    <a href="#" class="thumbnail">
+                        <img src="./images/upload-cloud.png" style="width: auto; height: 200px">
+                    </a>Chọn hình ảnh
+                </div>
+                <div class="col-md-4 col-md-offset-1 label-edit">
+                    <div class="form-group">
+                        <label>Tên bộ phim</label>
+                        <input type="text" class="form-control" id="filmName" ng-model="filmName">
+                    </div>
+                    <div class="form-group">
+                        <label>Thể loại</label>
+                        <select class="form-control" ng-model="filmType" id="filmType">
+                            <option ng-repeat="type in listTypeFilms" value="{{type}}">{{type}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Năm phát hành</label>
+                        <select class="form-control" ng-model="filmYear" id="filmYear">
+                            <option ng-repeat="year in listYear" value="{{year}}">{{year}}</option>
+                        </select>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>Đạo diễn</label>
+                        <input type="text" class="form-control" id="filmAuthor" ng-model="filmAuthor">
+                    </div>
+                    <div class="form-group">
+                        <label>Nội dung</label>
+                        <textarea type="text" class="form-control" id="filmContent" ng-model="filmContent" placeholder="Mô tả nội dung chính của bộ phim" ></textarea>
+                    </div>
+                    <button class="btn btn-success" type="submit" ng-click="clickUploadFilm()">Tải lên</button>
+                </div>
+            </div>
+        </div>
+    </form>
