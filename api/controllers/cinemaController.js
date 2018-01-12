@@ -8,7 +8,7 @@ exports.list_all_film = function (req, res) {
     if (err)
       return res.send(err);
     res.json(film);
-});
+  });
 };
 
 exports.create_new_film = function (req, res) {

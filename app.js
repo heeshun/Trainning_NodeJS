@@ -8,7 +8,9 @@ var bodyParser = require('body-parser');
 var app = express(),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
-  Film = require('./api/models/Cinema');
+  Film = require('./api/models/Cinema'),
+  User = require('./api/models/User');
+
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -20,9 +22,11 @@ app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs-locals'));
 
 require('./api/models/Cinema');
+require('./api/models/User');
 
 var index = require('./routes/index');
 var cinemaroute = require('./api/routes/cinema');
+var userroute = require('./api/routes/user');
 var users = require('./routes/users');
 
 // uncomment after placing your favicon in /public
@@ -35,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/api', cinemaroute);
+app.use('/api', userroute);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
