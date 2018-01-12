@@ -30,6 +30,7 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
     $http.post('api/createfilm', film).then(function (film) {
       $scope.error = false;
       $scope.film = film;
+      alert('Upload Successfully');
     });
 
   };
