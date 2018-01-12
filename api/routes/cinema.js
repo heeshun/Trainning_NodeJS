@@ -3,7 +3,7 @@
 var express = require('express');
 var router = express.Router();
 
-var cinema = require('../controllers/cinemaListController');
+var cinema = require('../controllers/cinemaController');
 router.get('/cinemas/', cinema.list_all_film);
 router.post('/createfilm/', cinema.create_new_film);
 

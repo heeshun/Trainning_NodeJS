@@ -2,7 +2,7 @@ var express = require('express'),
   app = express(),
   port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
-  Film = require('./api/models/cinemaListModel'),
+  Film = require('./api/models/Cinema'),
   bodyParser = require('body-parser');
 
   mongoose.Promise = global.Promise;
@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-var routes = require('./api/routes/cinemaListRoutes');
+var routes = require('./api/routes/cinema');
 routes(app);
 
 app.use(function(req, res) {

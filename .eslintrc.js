@@ -15,9 +15,6 @@ module.exports = {
 		'eqeqeq': 0,
 		'func-names': 0,
 		'guard-for-in': 0,
-		'indent': ["error", "tab", {
-			'SwitchCase': 1
-		}],
 		'no-tabs': 0,
 		'key-spacing': [2, {
 			'beforeColon': false,
