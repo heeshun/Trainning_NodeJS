@@ -4,6 +4,52 @@
         <link rel="stylesheet" href="stylesheets/film/create.css">
         <script src="/javascripts/film/create.js"></script>
     </head>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fuild">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">
+                    <i class="glyphicon glyphicon-home" style="color:aliceblue" aria-hidden="true">
+                    </i>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse" id="filmType">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle; navbar-brand" type="button" style="color:aliceblue" data-toggle="dropdown" role="button"
+                            aria-haspopup="true" aria-expanded="false">Thể loại
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">Hành động</a>
+                            </li>
+                            <li>
+                                <a href="#">Viễn tưởng</a>
+                            </li>
+                            <li>
+                                <a href="#">Hài</a>
+                            </li>
+                            <li>
+                                <a href="#">Khoa học</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="navbar-brand" href="#" style="color: aliceblue">Đăng Nhập</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <form ng-controller="createCtrl">
         <h1 style="text-align: center">Thêm phim mới</h1>
         <div class="form-margin">

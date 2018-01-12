@@ -4,14 +4,61 @@
         <link rel="stylesheet" href="stylesheets/film/list.css">
         <script src="/javascripts/film/list.js"></script>
     </head>
-    <div class="my-portfolio" ng-controller="listCtrl">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 my-portfolio-item hvr-grow" style="font-size: 20px; text-align: center" ng-repeat="film in listFilm"
-            ng-cloak>
+    <div class="container-fluid my-portfolio" ng-controller="listCtrl">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fuild">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                        aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        <i class="glyphicon glyphicon-home" style="color:aliceblue" aria-hidden="true">
+                        </i>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="filmType">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle; navbar-brand" type="button" style="color:aliceblue" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">Thể loại
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a ng-repeat="type in listTypeFilms" href="#" ng-click="clickSearchType(type)" value="{{type}}">{{type}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="navbar-brand" href="#" style="color: aliceblue">Đăng Nhập</a>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm..." id="searchFilm" ng-model="searchFilm">
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="navbar-brand" href="./create" style="color: aliceblue">Thêm Phim</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 my-portfolio-item hvr-grow" style="font-size: 20px; text-align: center; height: 350px"
+            ng-repeat="film in listFilm">
             <a href="#" class="thumbnail img-responsive">
                 <img src="./images/poster_8875.png">
             </a>
             <div class="detail">
-                <h3 class="name-film">{{film.name}} {{film.createDate}}</h3>
+                <h3 class="name-film">{{film.name}} ({{film.createDate}})</h3>
             </div>
         </div>
     </div>
