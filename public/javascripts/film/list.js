@@ -19,10 +19,10 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
 
   $scope.login = {
     email: '',
-    password: '',
-    name: ''
+    password: ''
 
   };
+
 
   $scope.user = {
     name: '',
@@ -31,6 +31,17 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     age: '',
     gender: ''
   };
+
+  var userLoginID = $('#user-id').text().trim();
+  if (userLoginID) {
+    $http.get('/api/user/' + userLoginID).then(function (res) {
+      if (res.err) {
+        alert('Create Unsuccessfully');
+        return;
+      }
+      $scope.user = res.data.user;
+    });
+  }
 
   $scope.clickRegister = function () {
     var user = {
@@ -48,6 +59,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       }
       $scope.user = res.data.user;
     });
+    $('#registerModal').modal('hide');
   };
 
   $scope.clickSearchType = function (type) {
@@ -62,10 +74,10 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     };
     $http.post('/api/auth/login', login).then(function (res) {
       if (res.err) {
-        alert('Vui lòng thử lại');
-        return;
+        alert('Đăng nhập thành công');
       }
-      $scope.user.name = $scope.login.name;
+      $scope.user.name = res.data.user.name;
+      $('#loginModal').modal('hide');
     });
   };
 

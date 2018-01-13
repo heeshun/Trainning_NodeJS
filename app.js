@@ -30,7 +30,6 @@ require('./api/models/User');
 var index = require('./routes/index');
 var cinemaroute = require('./api/routes/cinema');
 var userroute = require('./api/routes/user');
-var users = require('./routes/users');
 var auth = require('./api/routes/auth');
 
 // uncomment after placing your favicon in /public
@@ -41,10 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: config.secretSession,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+  secret: config.secretSession
 }));
 
 app.use('/', index);

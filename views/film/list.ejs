@@ -4,6 +4,8 @@
         <link rel="stylesheet" href="stylesheets/film/list.css">
         <script src="/javascripts/film/list.js"></script>
     </head>
+    <div id="user-id" style="display:none"><%= userLoggingID %></div>
+
     <div class="container-fluid my-portfolio" ng-controller="listCtrl">
         <nav class="navbar navbar-inverse">
             <div class="container-fuild">
@@ -36,10 +38,10 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-hide="user.name" >
-                            <a class="navbar-brand" href="#" style="color: aliceblue" data-toggle="modal" data-target="#loginModal">{{'Đăng Nhập'}}</a>
+                            <a class="navbar-brand hvr-sweep-to-right" href="#" style="color: aliceblue" data-toggle="modal" data-target="#loginModal">Đăng Nhập</a>
                         </li>
                         <li ng-show="user.name">
-                            <a class="navbar-brand" href="#" style="color: aliceblue" data-toggle="modal" data-target="#loginModal">{{ 'Chào, ' + user.name}}</a>
+                            <a class="navbar-brand" href="#" style="color: aliceblue">{{ 'Chào, ' + user.name}}</a>
                         </li>
                     </ul>
 
@@ -145,8 +147,8 @@
                         </div>
                     </form>
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a class="navbar-brand" href="./create" style="color: aliceblue">Thêm Phim</a>
+                        <li ng-show="user.name">
+                            <a class="navbar-brand hvr-sweep-to-right" href="./create" style="color: aliceblue">Thêm Phim</a>
                         </li>
                     </ul>
                 </div>
