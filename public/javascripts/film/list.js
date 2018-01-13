@@ -10,9 +10,44 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     'Võ thuật',
     'Kinh dị'
   ];
+  $scope.listGender = [
+    'Nam',
+    'Nữ',
+    'Không xác định'
+  ];
+  $scope.categories = 'Thể Loại';
+
+  $scope.clickLogin = function () {
+    $http.get('api/get-user').then(function (res) {
+    });
+  };
+
+  $scope.user = {
+
+  }
+
+  $scope.clickRegister = function () {
+    var user = {
+      name: $scope.userName,
+      email: $scope.userEmail,
+      password: $scope.userPassword,
+      age: $scope.userAge,
+      gender: $scope.userGender
+    };
+    $http.post('api/create-user', user).then(function (res) {
+      console.log(res);
+      if (res.err) {
+        alert('Create Unsuccessfully');
+        return;
+      }
+      $scope.user = res.data.user;
+      console.log($scope.user);
+    });
+  };
 
   $scope.clickSearchType = function (type) {
     $scope.searchFilm = type;
+    $scope.categories = type;
   };
 
   $http.get('/api/cinemas').then(function (res) {
