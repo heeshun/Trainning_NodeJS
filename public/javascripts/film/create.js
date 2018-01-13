@@ -27,7 +27,7 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
       author: $scope.filmAuthor,
       content: $scope.filmContent
     };
-    $http.post('api/createfilm', film).then(function (film) {
+    $http.post('api/cinema/create', film).then(function (film) {
       $scope.error = false;
       $scope.film = film;
       alert('Upload Successfully');

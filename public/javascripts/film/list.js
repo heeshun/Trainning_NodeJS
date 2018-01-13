@@ -17,14 +17,20 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
   ];
   $scope.categories = 'Thể Loại';
 
-  $scope.clickLogin = function () {
-    $http.get('api/get-user').then(function (res) {
-    });
+  $scope.login = {
+    email: '',
+    password: '',
+    name: ''
+
   };
 
   $scope.user = {
-
-  }
+    name: '',
+    email: '',
+    password: '',
+    age: '',
+    gender: ''
+  };
 
   $scope.clickRegister = function () {
     var user = {
@@ -34,14 +40,13 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       age: $scope.userAge,
       gender: $scope.userGender
     };
-    $http.post('api/create-user', user).then(function (res) {
-      console.log(res);
+
+    $http.post('api/user/create', user).then(function (res) {
       if (res.err) {
         alert('Create Unsuccessfully');
         return;
       }
       $scope.user = res.data.user;
-      console.log($scope.user);
     });
   };
 
@@ -50,7 +55,21 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     $scope.categories = type;
   };
 
-  $http.get('/api/cinemas').then(function (res) {
+  $scope.clickLogin = function () {
+    var login = {
+      email: $scope.userEmail,
+      password: $scope.userPassword
+    };
+    $http.post('/api/auth/login', login).then(function (res) {
+      if (res.err) {
+        alert('Vui lòng thử lại');
+        return;
+      }
+      $scope.user.name = $scope.login.name;
+    });
+  };
+
+  $http.get('/api/cinema').then(function (res) {
     $scope.listFilm = res.data;
     $scope.listFilmStable = res.data;
   });

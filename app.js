@@ -4,6 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
+var config = require('./config');
+
 
 var app = express(),
   port = process.env.PORT || 3000,
@@ -28,6 +31,7 @@ var index = require('./routes/index');
 var cinemaroute = require('./api/routes/cinema');
 var userroute = require('./api/routes/user');
 var users = require('./routes/users');
+var auth = require('./api/routes/auth');
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -36,11 +40,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: config.secretSession,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
 
 app.use('/', index);
-app.use('/api', cinemaroute);
-app.use('/api', userroute);
-app.use('/users', users);
+app.use('/api/cinema', cinemaroute);
+app.use('/api/user', userroute);
+app.use('/api/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
