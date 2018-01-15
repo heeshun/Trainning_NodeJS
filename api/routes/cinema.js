@@ -6,5 +6,6 @@ var router = express.Router();
 var cinema = require('../controllers/cinemaController');
 router.get('/', cinema.listAllFilm);
 router.post('/create', cinema.createNewFilm);
+router.put('/update', cinema.updateFilm);
 
 module.exports = router;

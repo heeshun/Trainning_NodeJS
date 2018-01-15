@@ -154,6 +154,7 @@
 
             </div>
           </div>
+          
           <form class="navbar-form navbar-right">
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm..." id="searchFilm" ng-model="searchFilm">
@@ -252,35 +253,35 @@
                         <h4>
                           <b>Tên: </b>
                         </h4>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" id="editName" ng-model="filmDetail.name" value="{{filmDetail.name}}">
                       </div>
                       <div class="form-group">
                         <h4>
                           <b>Năm phát hành:</b></h4>
-                          <select class="form-control" ng-model="filmYear" id="filmYear">
+                          <select class="form-control" ng-model="filmDetail.createDate" id="editYear">
                               <option ng-repeat="year in listYear" value="{{year}}">{{year}}</option>
                           </select>
                       </div>
                       <div class="form-group">
                         <h4>
                           <b>Thể loại:</b></h4>
-                          <select class="form-control" ng-model="filmType" id="filmType">
+                          <select class="form-control" ng-model="filmDetail.typeFilm" id="editType">
                               <option ng-repeat="type in listTypeFilms" value="{{type}}">{{type}}</option>
                           </select>
                       </div>
                       <div class="form-group">
                         <h4>
                           <b>Đạo diễn:</b></h4>
-                          <input type="text" class="form-control">
+                          <input type="text" ng-model="filmDetail.author" id="editAuthor" class="form-control">
                       </div>
                       <div class="form-group">
                         <h4>
                           <b>Nội dung:</b></h4>
-                          <textarea type="text" class="form-control" id="filmContent" ng-model="filmContent"></textarea>
+                          <textarea type="text" class="form-control" style="height: 80px" id="editContent" ng-model="filmDetail.content"></textarea>
                       </div>
                       <hr class="colorgraph">
                       <div class="row text-center">
-                        <a class="btn btn-success" data-toggle="modal" data-target="#loginModal" data-dismiss="modal" style="align-items: center">Xác nhận</a>
+                        <a class="btn btn-success" type="submit" data-dismiss="modal" ng-click="clickUpdateFilm(filmDetail)">Xác nhận</a>
                       </div>
                     </div>
                   </fieldset>

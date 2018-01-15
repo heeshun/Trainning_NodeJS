@@ -15,6 +15,10 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     'Nữ',
     'Không xác định'
   ];
+
+  $scope.listYear = [];
+  for (var i = 1900; i <= 2018; i++) $scope.listYear.push(i);
+
   $scope.categories = 'Thể Loại';
 
   $scope.login = {
@@ -44,8 +48,23 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
 
   $scope.clickViewDetail = function (index) {
     $scope.filmDetail = $scope.listFilm[index];
-    console.log($scope.listFilm);
-    console.log($scope.filmDetail.userCreate);
+  };
+
+  $scope.clickUpdateFilm = function (filmDetail) {
+    var film = {
+      _id: $scope.filmDetail._id,
+      name: $scope.filmDetail.filmName,
+      typeFilm: $scope.filmDetail.filmType,
+      createDate: $scope.filmDetail.filmYear,
+      author: $scope.filmDetail.filmAuthor,
+      content: $scope.filmDetail.filmContent
+    };
+    $http.put('/api/cinema/update').then(function () {
+      console.log('aaaa');
+      $scope.error = false;
+      $scope.film = film;
+      alert('Chỉnh sửa thành công');
+    });
   };
 
   $scope.clickRegister = function () {
@@ -86,6 +105,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
         alert('Đăng nhập thành công');
       }
       $scope.user.name = res.data.user.name;
+      $scope.user._id = res.data.user._id;
       $('#loginModal').modal('hide');
     });
   };
