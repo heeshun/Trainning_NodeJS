@@ -23,6 +23,10 @@ var FilmSchema = new Schema({
   author: {
     type: String,
     default: ''
+  },
+  userCreate: {
+    type: String,
+    default: ''
   }
 });
 

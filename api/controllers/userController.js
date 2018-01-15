@@ -19,7 +19,6 @@ exports.createNewUser = function (req, res) {
     });
     req.session.user = user;
     req.session.token = token;
-    console.log(req.session.token);
     res.send({ message: 'Success', user: user });
   });
 };
@@ -27,9 +26,7 @@ exports.createNewUser = function (req, res) {
 exports.getUser = function (req, res) {
   User.findOne({ _id: req.params.id }, function (err, user) {
     if (err) {
-      console.log(err);
       return res.send({ err: 'Server error' });
-
     }
     res.json({ message: 'Login Successfully', user: user });
   });

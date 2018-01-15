@@ -23,7 +23,6 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
 
   };
 
-
   $scope.user = {
     name: '',
     email: '',
@@ -42,6 +41,12 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       $scope.user = res.data.user;
     });
   }
+
+  $scope.clickViewDetail = function (index) {
+    $scope.filmDetail = $scope.listFilm[index];
+    console.log($scope.listFilm);
+    console.log($scope.filmDetail.userCreate);
+  };
 
   $scope.clickRegister = function () {
     var user = {
@@ -68,6 +73,10 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
   };
 
   $scope.clickLogin = function () {
+    if ($scope.userEmail.length === 0) {
+      document.getElementById('emailRegister').setCustomValidity('Email là bắt buộc');
+      return;
+    }
     var login = {
       email: $scope.userEmail,
       password: $scope.userPassword
@@ -79,6 +88,18 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       $scope.user.name = res.data.user.name;
       $('#loginModal').modal('hide');
     });
+  };
+
+  $scope.clickLogout = function (res) {
+    $http.get('./api/auth/logout').then(function (res) {
+      console.log(res.message);
+      if (res.message) {
+        $scope.user = [];
+      } else {
+        return true;
+      }
+    });
+
   };
 
   $http.get('/api/cinema').then(function (res) {

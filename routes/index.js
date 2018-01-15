@@ -8,7 +8,11 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/create', function (req, res, next) {
-  res.render('film/create', { title: 'Express', userLoggingID: (req.session.user ? req.session.user._id : '') });
+  if (req.session.user) {
+    res.render('film/create', { title: 'Express', userLoggingID: (req.session.user ? req.session.user._id : '') });
+  } else {
+    res.redirect('/');
+  }
 });
 
 module.exports = router;

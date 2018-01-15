@@ -18,6 +18,8 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
   $scope.filmYear = new Date().getFullYear;
   $scope.filmAuthor = '';
   $scope.filmContent = '';
+  $scope.filmCreater = '';
+  var userLoginID = $('#user-id').text().trim();
 
   $scope.clickUploadFilm = function () {
     var film = {
@@ -25,7 +27,8 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
       typeFilm: $scope.filmType,
       createDate: $scope.filmYear,
       author: $scope.filmAuthor,
-      content: $scope.filmContent
+      content: $scope.filmContent,
+      userCreate: userLoginID
     };
     $http.post('api/cinema/create', film).then(function (film) {
       $scope.error = false;
