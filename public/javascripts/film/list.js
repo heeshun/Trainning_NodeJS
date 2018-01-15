@@ -53,14 +53,13 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
   $scope.clickUpdateFilm = function (filmDetail) {
     var film = {
       _id: $scope.filmDetail._id,
-      name: $scope.filmDetail.filmName,
-      typeFilm: $scope.filmDetail.filmType,
-      createDate: $scope.filmDetail.filmYear,
-      author: $scope.filmDetail.filmAuthor,
-      content: $scope.filmDetail.filmContent
+      name: $scope.filmDetail.name,
+      typeFilm: $scope.filmDetail.typeFilm,
+      createDate: $scope.filmDetail.createDate,
+      author: $scope.filmDetail.author,
+      content: $scope.filmDetail.content
     };
-    $http.put('/api/cinema/update').then(function () {
-      console.log('aaaa');
+    $http.put('/api/cinema/update', film).then(function () {
       $scope.error = false;
       $scope.film = film;
       alert('Chỉnh sửa thành công');
@@ -112,11 +111,10 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
 
   $scope.clickLogout = function (res) {
     $http.get('./api/auth/logout').then(function (res) {
-      console.log(res.message);
-      if (res.message) {
-        $scope.user = [];
+      if (res) {
+        $scope.user = {};
       } else {
-        return true;
+        alert('Vui lòng thử lại');
       }
     });
 

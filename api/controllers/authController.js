@@ -29,3 +29,12 @@ exports.authUser = function (req, res) {
   });
 };
 
+exports.userLogout = function (req, res) {
+  req.session.destroy(function (err) {
+    if (err) {
+      res.send({ err: 'Server lỗi' });
+    } else {
+      res.send({ message: 'Đăng xuất thành công' });
+    }
+  });
+};
