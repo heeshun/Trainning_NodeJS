@@ -10,15 +10,25 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     'Võ thuật',
     'Kinh dị'
   ];
+  $scope.listTypeFilms2 = [
+    'Tất cả',
+    'Hành động',
+    'Tình cảm',
+    'Khoa học viễn tưởng',
+    'Hài',
+    'Hoạt hình',
+    'Võ thuật',
+    'Kinh dị'
+  ];
   $scope.listGender = [
     'Nam',
     'Nữ',
     'Không xác định'
   ];
   $scope.filmEdit = {};
-
+  $scope.loading = true;
   $scope.listYear = [];
-  for (var i = 1900; i <= 2018; i++) $scope.listYear.push(i);
+  for (var i = 1970; i <= 2018; i++) $scope.listYear.push(i);
 
   $scope.listOld = [];
   for (var y = 1950; y <= 2015; y++) $scope.listOld.push(y);
@@ -59,7 +69,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     if (!$scope.filmEdit.name || !$scope.filmEdit.typeFilm || !$scope.filmEdit.createDate || !$scope.filmEdit.author || !$scope.filmEdit.content) {
       return;
     }
-    $scope.filmDetail = $scope.filmEdit;
+    $scope.loading = true;
     var film = {
       _id: $scope.filmEdit._id,
       name: $scope.filmEdit.name,
@@ -68,9 +78,16 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       author: $scope.filmEdit.author,
       content: $scope.filmEdit.content
     };
+    $scope.filmDetail.name = $scope.filmEdit.name;
+    $scope.filmDetail.author = $scope.filmEdit.author;
+    $scope.filmDetail.typeFilm = $scope.filmEdit.typeFilm;
+    $scope.filmDetail.createDate = $scope.filmEdit.createDate;
+    $scope.filmDetail.content = $scope.filmEdit.content;
+    $scope.filmDetail._id = $scope.filmEdit._id;
     $http.put('/api/cinema/update', film).then(function () {
       $scope.error = false;
       $scope.film = film;
+      $scope.loading = false;
       alert('Chỉnh sửa thành công');
     });
   };
@@ -87,6 +104,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       gender: $scope.userGender
     };
     $http.post('api/user/create', user).then(function (res) {
+      $scope.loading = true;
       if (res.data.err) {
         alert('Xin vui lòng thử lại');
         return;
@@ -95,6 +113,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
         return;
       }
       $scope.user = res.data.user;
+      $scope.loading = false;
       alert('Đăng kí thành công');
       $('#registerModal').modal('hide');
     });
@@ -117,6 +136,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       password: $scope.userPassword
     };
     $http.post('/api/auth/login', login).then(function (res) {
+      $scope.loading = true;
       if (res.data.err) {
         alert('Vui lòng thử lại');
         return;
@@ -129,6 +149,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       } else {
         alert('Đăng nhập thành công');
       }
+      $scope.loading = false;
       $scope.user.name = res.data.user.name;
       $scope.user._id = res.data.user._id;
       $('#loginModal').modal('hide');
@@ -136,26 +157,38 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
   };
 
   $scope.clickLogout = function () {
-    confirm('Bạn muốn đăng xuất không?');
-    $http.get('./api/auth/logout').then(function (res) {
-      if (res.data.message) {
-        $scope.user = {};
-      } else {
-        alert('Vui lòng thử lại');
-      }
-    });
+    if (confirm('Bạn muốn đăng xuất không?')) {
+      $http.get('./api/auth/logout').then(function (res) {
+        $scope.loading = true;
+        if (res.data.message) {
+          $scope.user = {};
+          $scope.loading = false;
+        } else {
+          alert('Vui lòng thử lại');
+        }
+      });
+    }
   };
 
   $http.get('/api/cinema').then(function (res) {
     $scope.listFilm = res.data;
+    $scope.loading = false;
     $scope.listFilmStable = res.data;
   });
 
-
-  $scope.$watch('searchFilm', function (val) {
+  $scope.typeSearchFilm = '';
+  $scope.searchFilm = '';
+  $scope.$watchGroup(['searchFilm', 'typeSearchFilm'], searchListFilm);
+  function searchListFilm(val) {
+    if ($scope.typeSearchFilm == 'Tất cả') {
+      $scope.typeSearchFilm = '';
+    }
     $scope.listFilm = [];
     var list = $scope.listFilmStable.filter(x => {
-      if (changeAlias(x.name).includes(changeAlias($scope.searchFilm)) || changeAlias(x.author).includes(changeAlias($scope.searchFilm)) || changeAlias(x.content).includes(changeAlias($scope.searchFilm)) || changeAlias(x.typeFilm).includes(changeAlias($scope.searchFilm))) {
+      if ((changeAlias(x.name).includes(changeAlias($scope.searchFilm)) || changeAlias(x.author).includes(changeAlias($scope.searchFilm))
+      || changeAlias(x.content).includes(changeAlias($scope.searchFilm)) || changeAlias(x.typeFilm).includes(changeAlias($scope.searchFilm))
+      || changeAlias(x.createDate).includes(changeAlias($scope.searchFilm)))
+      && changeAlias(x.typeFilm).includes(changeAlias($scope.typeSearchFilm))) {
         return true;
       } else {
         return false;
@@ -165,22 +198,39 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     for (i = 0; i < list.length; i++) {
       $scope.listFilm.push(list[i]);
     }
-  });
+  }
 
-  $scope.$watch('typeSearchFilm', function (val) {
-    $scope.listFilm = [];
-    var list = $scope.listFilmStable.filter(x => {
-      if (changeAlias(x.typeFilm).includes(changeAlias($scope.typeSearchFilm))) {
-        return true;
+  $(function () {
+
+    if (localStorage.chkbox && localStorage.chkbox != '') {
+      $('#rememberChkBox').attr('checked', 'checked');
+      $('#email').val(localStorage.email);
+      $scope.userEmail = localStorage.email;
+      $('#password').val(localStorage.pass);
+      $scope.userPassword = localStorage.pass;
+    } else {
+      setTimeout(function () {
+        $('#rememberChkBox').removeAttr('checked');
+        $('#email').val('');
+        $('#password').val('');
+      }, 200);
+    }
+
+    $('#rememberChkBox').click(function () {
+
+      if ($('#rememberChkBox').is(':checked')) {
+        // save username and password
+        localStorage.email = $('#email').val();
+        localStorage.pass = $('#password').val();
+        localStorage.chkbox = $('#rememberChkBox').val();
       } else {
-        return false;
+        localStorage.email = '';
+        localStorage.pass = '';
+        localStorage.chkbox = '';
       }
     });
-    var i;
-    for (i = 0; i < list.length; i++) {
-      $scope.listFilm.push(list[i]);
-    }
   });
+
 }]);
 
 function changeAlias(alias) {

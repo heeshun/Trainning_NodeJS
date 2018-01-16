@@ -28,7 +28,7 @@ exports.updateFilm = function (req, res) {
       return res.send({ message: 'Phim không tồn tại' });
     film.name = req.body.name;
     film.author = req.body.author;
-    film.createDay = req.body.createDay;
+    film.createDate = req.body.createDate;
     film.content = req.body.content;
     film.typeFilm = req.body.typeFilm;
     film.save(function (err) {

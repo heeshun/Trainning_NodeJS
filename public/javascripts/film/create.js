@@ -21,11 +21,48 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
   $scope.filmCreater = '';
   var userLoginID = $('#user-id').text().trim();
 
+  $scope.user = {
+    name: '',
+    email: '',
+    password: '',
+    age: '',
+    gender: ''
+  };
+
+  if (userLoginID) {
+    $http.get('/api/user/' + userLoginID).then(function (res) {
+      if (res.err) {
+        alert('Server lỗi');
+        return;
+      }
+      $scope.user.name = res.data.user.name;
+      console.log($scope.user.name);
+    });
+  }
+
+  $scope.clickLogout = function () {
+    if (confirm('Bạn muốn đăng xuất không?')) {
+      $http.get('./api/auth/logout').then(function (res) {
+        $scope.loading = true;
+        if (res.data.message) {
+          $scope.user = {};
+          $scope.loading = false;
+          window.location.replace('/');
+        } else {
+          alert('Vui lòng thử lại');
+        }
+      });
+    }
+  };
+
   $scope.clickUploadFilm = function () {
+    console.log(userLoginID);
+    if (!$scope) {
+      window.location.replace('/');
+    }
     if (!$scope.filmName || !$scope.filmType || !$scope.filmYear || !$scope.filmAuthor || !$scope.filmContent) {
       return;
     }
-    console.log($scope.filmYear);
     var film = {
       name: $scope.filmName,
       typeFilm: $scope.filmType,
@@ -38,6 +75,7 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
       $scope.error = false;
       $scope.film = film;
       alert('Tải lên thành công');
+      location.reload();
     });
 
   };
