@@ -50,7 +50,7 @@
             </div>
         </div>
     </nav>
-    <form ng-controller="createCtrl">
+    <form ng-controller="createCtrl" name="addFilm">
         <h1 class="animated bounceInLeft" style="text-align: center; font-size: 70px">Thêm phim mới</h1>
         <div class="form-margin">
             <div class="row">
@@ -62,29 +62,31 @@
                 <div class="col-md-4 col-md-offset-1 label-edit animated bounceInLeft">
                     <div class="form-group">
                         <label>Tên bộ phim</label>
-                        <input type="text" class="form-control" id="filmName" ng-model="filmName">
+                        <input required type="text" class="form-control" id="filmName" ng-model="filmName">
                     </div>
                     <div class="form-group">
                         <label>Thể loại</label>
-                        <select class="form-control" ng-model="filmType" id="filmType">
+                        <select required class="form-control" ng-model="filmType" id="filmType">
+                            <option disabled selected style="color: gray;" value="">Thể loại</option>
                             <option ng-repeat="type in listTypeFilms" value="{{type}}">{{type}}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Năm phát hành</label>
-                        <select class="form-control" ng-model="filmYear" id="filmYear">
+                        <select required class="form-control" ng-model="filmYear" id="filmYear" ng-init="filmYear=listYear[0]">
+                            <option disabled selected style="color: gray;" value="">Năm phát hành</option>
                             <option ng-repeat="year in listYear" value="{{year}}">{{year}}</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Đạo diễn</label>
-                        <input type="text" class="form-control" id="filmAuthor" ng-model="filmAuthor">
+                        <input required type="text" class="form-control" id="filmAuthor" ng-model="filmAuthor">
                     </div>
                     <div class="form-group">
                         <label>Nội dung</label>
-                        <textarea type="text" class="form-control" id="filmContent" ng-model="filmContent" placeholder="Mô tả nội dung chính của bộ phim"></textarea>
+                        <textarea required type="text" class="form-control" id="filmContent" ng-model="filmContent" placeholder="Mô tả nội dung chính của bộ phim"></textarea>
                     </div>
-                    <button class="btn btn-success hvr-shadow-radial" type="submit" ng-click="clickUploadFilm()">Tải lên</button>
+                    <input class="btn btn-success hvr-shadow-radial" type="submit" ng-click="clickUploadFilm()" value="Tải lên">
                 </div>
             </div>
         </div>

@@ -15,9 +15,13 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     'Nữ',
     'Không xác định'
   ];
+  $scope.filmEdit = {};
 
   $scope.listYear = [];
   for (var i = 1900; i <= 2018; i++) $scope.listYear.push(i);
+
+  $scope.listOld = [];
+  for (var y = 1950; y <= 2015; y++) $scope.listOld.push(y);
 
   $scope.categories = 'Thể Loại';
 
@@ -48,16 +52,21 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
 
   $scope.clickViewDetail = function (index) {
     $scope.filmDetail = $scope.listFilm[index];
+    $scope.filmEdit = angular.copy($scope.filmDetail);
   };
 
-  $scope.clickUpdateFilm = function (filmDetail) {
+  $scope.clickUpdateFilm = function (filmEdit) {
+    if (!$scope.filmEdit.name || !$scope.filmEdit.typeFilm || !$scope.filmEdit.createDate || !$scope.filmEdit.author || !$scope.filmEdit.content) {
+      return;
+    }
+    $scope.filmDetail = $scope.filmEdit;
     var film = {
-      _id: $scope.filmDetail._id,
-      name: $scope.filmDetail.name,
-      typeFilm: $scope.filmDetail.typeFilm,
-      createDate: $scope.filmDetail.createDate,
-      author: $scope.filmDetail.author,
-      content: $scope.filmDetail.content
+      _id: $scope.filmEdit._id,
+      name: $scope.filmEdit.name,
+      typeFilm: $scope.filmEdit.typeFilm,
+      createDate: $scope.filmEdit.createDate,
+      author: $scope.filmEdit.author,
+      content: $scope.filmEdit.content
     };
     $http.put('/api/cinema/update', film).then(function () {
       $scope.error = false;
@@ -67,6 +76,9 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
   };
 
   $scope.clickRegister = function () {
+    if (!$scope.userName || !$scope.userEmail || !$scope.userPassword || !$scope.userAge || !$scope.userGender) {
+      return;
+    }
     var user = {
       name: $scope.userName,
       email: $scope.userEmail,
@@ -74,25 +86,30 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       age: $scope.userAge,
       gender: $scope.userGender
     };
-
     $http.post('api/user/create', user).then(function (res) {
-      if (res.err) {
-        alert('Create Unsuccessfully');
+      if (res.data.err) {
+        alert('Xin vui lòng thử lại');
+        return;
+      } else if (res.data.err1) {
+        alert('Email này đã được đăng kí');
         return;
       }
       $scope.user = res.data.user;
+      alert('Đăng kí thành công');
+      $('#registerModal').modal('hide');
     });
-    $('#registerModal').modal('hide');
   };
 
   $scope.clickSearchType = function (type) {
-    $scope.searchFilm = type;
+    $scope.typeSearchFilm = type;
     $scope.categories = type;
   };
 
   $scope.clickLogin = function () {
-    if ($scope.userEmail.length === 0) {
-      document.getElementById('emailRegister').setCustomValidity('Email là bắt buộc');
+    if (!$scope.userEmail) {
+      return;
+    }
+    if (!$scope.userPassword) {
       return;
     }
     var login = {
@@ -100,7 +117,16 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       password: $scope.userPassword
     };
     $http.post('/api/auth/login', login).then(function (res) {
-      if (res.err) {
+      if (res.data.err) {
+        alert('Vui lòng thử lại');
+        return;
+      } else if (res.data.err1) {
+        alert('Email này không tồn tại');
+      } else if (res.data.err2) {
+        alert('Server lỗi, vui lòng thử lại sau');
+      } else if (res.data.message1) {
+        alert('Mật khẩu không đúng');
+      } else {
         alert('Đăng nhập thành công');
       }
       $scope.user.name = res.data.user.name;
@@ -109,15 +135,15 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     });
   };
 
-  $scope.clickLogout = function (res) {
+  $scope.clickLogout = function () {
+    confirm('Bạn muốn đăng xuất không?');
     $http.get('./api/auth/logout').then(function (res) {
-      if (res) {
+      if (res.data.message) {
         $scope.user = {};
       } else {
         alert('Vui lòng thử lại');
       }
     });
-
   };
 
   $http.get('/api/cinema').then(function (res) {
@@ -129,7 +155,22 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
   $scope.$watch('searchFilm', function (val) {
     $scope.listFilm = [];
     var list = $scope.listFilmStable.filter(x => {
-      if (changeAlias(x.name).includes(changeAlias($scope.searchFilm)) || changeAlias(x.author).includes(changeAlias($scope.searchFilm)) || changeAlias(x.typeFilm).includes(changeAlias($scope.searchFilm))) {
+      if (changeAlias(x.name).includes(changeAlias($scope.searchFilm)) || changeAlias(x.author).includes(changeAlias($scope.searchFilm)) || changeAlias(x.content).includes(changeAlias($scope.searchFilm)) || changeAlias(x.typeFilm).includes(changeAlias($scope.searchFilm))) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    var i;
+    for (i = 0; i < list.length; i++) {
+      $scope.listFilm.push(list[i]);
+    }
+  });
+
+  $scope.$watch('typeSearchFilm', function (val) {
+    $scope.listFilm = [];
+    var list = $scope.listFilmStable.filter(x => {
+      if (changeAlias(x.typeFilm).includes(changeAlias($scope.typeSearchFilm))) {
         return true;
       } else {
         return false;
@@ -155,6 +196,5 @@ function changeAlias(alias) {
   str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g, ' ');
   str = str.replace(/ + /g, ' ');
   str = str.trim();
-  console.log(str);
   return str;
 }

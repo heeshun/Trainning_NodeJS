@@ -52,110 +52,120 @@
 
           <!-- Modal Login-->
           <div class="modal fade" id="loginModal" role="dialog">
-            <div class="modal-dialog">
+            <form name="loginForm">
+              <div class="modal-dialog">
 
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-body">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <div class="row" style="margin-top:10px">
-                    <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-1 col-md-offset-1">
-                      <form class="container-fluid" role="form">
-                        <fieldset>
-                          <h2>Đăng Nhập</h2>
-                          <hr class="colorgraph">
-                          <div class="form-group">
-                            <input required type="email" name="emailLogin" id="email" class="form-control input-lg" ng-model="userEmail" placeholder="Email">
-                          </div>
-                          <div class="alert alert-danger" ng-messages="projectForm.emailLogin.$error">
-                            <div ng-message="required">
-                              Vui lòng điền Email
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="row" style="margin-top:10px">
+                      <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-1 col-md-offset-1">
+                        <form class="container-fluid" role="form">
+                          <fieldset>
+                            <h2>Đăng Nhập</h2>
+                            <hr class="colorgraph">
+                            <div class="form-group">
+                              <input required="required" type="email" name="emailLogin" id="email" class="form-control input-lg" ng-model="userEmail" placeholder="Email"
+                                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                             </div>
-                          </div>
-                          <div class="form-group">
-                            <input required type="password" name="password" id="password" class="form-control input-lg" ng-model="userPassword" placeholder="Mật khẩu">
-                          </div>
-                          <span class="button-checkbox">
-                            <button type="button" class="btn" data-color="info">Ghi nhớ tài khoản</button>
-                            <input type="checkbox" name="remember_me" id="remember_me" checked="checked" class="hidden">
-                            <a href="" class="btn btn-link pull-right">Quên mật khẩu?</a>
-                          </span>
-                          <hr class="colorgraph">
-                          <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                              <input type="submit" class="btn btn-lg btn-success btn-block" ng-click="clickLogin()" value="Đăng nhập">
+                            <div class="form-group">
+                              <input required="required" type="password" name="password" id="password" class="form-control input-lg" ng-model="userPassword"
+                                placeholder="Mật khẩu">
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                              <a href="" data-toggle="modal" data-target="#registerModal" data-dismiss="modal" class="btn btn-lg btn-primary btn-block">Đăng ký</a>
+                            <span class="form-check form-group">
+                              <input type="checkbox" name="remember_me" id="remember_me" checked="checked">
+                              <label>Ghi nhớ tài khoản</label>
+                              <!-- <a href="" class="btn btn-link pull-right">Quên mật khẩu?</a> -->
+                            </span>
+                            <hr class="colorgraph">
+                            <div class="row">
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input type="submit" class="btn btn-lg btn-success btn-block" ng-click="clickLogin()" value="Đăng nhập">
+                              </div>
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <a href="" data-toggle="modal" data-target="#registerModal" data-dismiss="modal" class="btn btn-lg btn-primary btn-block">Đăng ký</a>
+                              </div>
                             </div>
-                          </div>
-                        </fieldset>
-                      </form>
+                          </fieldset>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
                 </div>
               </div>
-
-            </div>
+            </form>
           </div>
 
           <!-- Modal Register-->
           <div class="modal fade" id="registerModal" role="dialog">
-            <div class="modal-dialog">
+            <form name="registerForm">
+              <div class="modal-dialog">
 
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-body">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <div class="row" style="margin-top:10px">
-                    <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-1 col-md-offset-1">
-                      <form class="container-fluid" role="form">
-                        <fieldset>
-                          <h2>Đăng Ký</h2>
-                          <hr class="colorgraph">
-                          <div class="form-group">
-                            <input type="text" name="name" id="name" class="form-control input-lg" ng-model="userName" placeholder="Tên">
-                          </div>
-                          <div class="form-group">
-                            <input type="email" name="email" id="emailRegister" class="form-control input-lg" ng-model="userEmail" placeholder="Email">
-                          </div>
-                          <div class="form-group">
-                            <input type="password" name="passwordRegister" id="passwordRegister" class="form-control input-lg" ng-model="userPassword"
-                              placeholder="Mật khẩu">
-                          </div>
-                          <div class="form-group">
-                            <input type="number" name="age" id="age" class="form-control input-lg" ng-model="userAge" placeholder="Tuổi">
-                          </div>
-                          <div class="form-group">
-                            <select class="form-control input-lg" style="color: gray;" ng-model="userGender" id="gender">
-                              <option disabled selected style="color: gray;" value="">Giới Tính </option>
-                              <option ng-repeat="gender in listGender" value="{{gender}}">{{gender}}</option>
-                            </select>
-                          </div>
-                          <hr class="colorgraph">
-                          <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6">
-                              <a href="" type="submit" class="btn btn-lg btn-success btn-block" ng-click="clickRegister()">Đăng ký</a>
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="row" style="margin-top:10px">
+                      <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-1 col-md-offset-1">
+                        <form class="container-fluid" role="form">
+                          <fieldset>
+                            <h2>Đăng Ký</h2>
+                            <hr class="colorgraph">
+                            <div class="form-group">
+                              <input required="required" type="text" name="name" id="name" class="form-control input-lg" ng-model="userName" placeholder="Tên">
                             </div>
-                            <a href="" data-toggle="modal" data-target="#loginModal" data-dismiss="modal" class="btn btn-link pull-right">Quay lại Đăng Nhập</a>
-                          </div>
-                        </fieldset>
-                      </form>
+                            <div class="form-group">
+                              <input required="required" type="email" name="email" id="emailRegister" class="form-control input-lg" ng-model="userEmail"
+                                placeholder="Email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                            </div>
+                            <div class="form-group">
+                              <input required="required" type="password" name="passwordRegister" id="passwordRegister" class="form-control input-lg" ng-model="userPassword"
+                                placeholder="Mật khẩu">
+                            </div>
+                            <div class="form-group">
+                              <select required class="form-control input-lg" style="color: gray;" ng-model="userAge" id="userAge">
+                                <option disabled selected style="color: gray;" value="">Năm sinh</option>
+                                <option ng-repeat="age in listOld" value="{{age}}">{{age}}</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <select required="required" class="form-control input-lg" style="color: gray;" ng-model="userGender" id="gender">
+                                <option disabled selected style="color: gray;" value="">Giới Tính </option>
+                                <option ng-repeat="gender in listGender" value="{{gender}}">{{gender}}</option>
+                              </select>
+                            </div>
+                            <hr class="colorgraph">
+                            <div class="row">
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input type="submit" data-toggle="modal" data-target="#loginModal" data-dismiss="modal" class="btn btn-lg btn-info btn-block"
+                                  value="Quay lại Đăng Nhập">
+                              </div>
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input type="submit" class="btn btn-lg btn-success btn-block" ng-click="clickRegister()" value="Đăng ký">
+                              </div>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </div>
                     </div>
                   </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
                 </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-              </div>
 
-            </div>
+              </div>
+            </form>
           </div>
-          
+
           <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" class="form-control hidden" id="typeSearchFilm" ng-model="typeSearchFilm">
+            </div>
             <div class="form-group">
               <input type="text" class="form-control" placeholder="Nhập từ khóa tìm kiếm..." id="searchFilm" ng-model="searchFilm">
             </div>
@@ -233,63 +243,69 @@
 
     <!-- Modal Edit Film -->
     <div class="modal fade" id="filmEdit" role="dialog">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-body">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <div class="row" style="margin-top:10px">
-              <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-1 col-md-offset-1">
-                <form class="container-fluid" role="form">
-                  <fieldset>
-                    <div>
-                      <h3 class="name-film">
-                        <b>Chỉnh sửa phim</b>
-                      </h3>
-                      <hr class="colorgraph">
-                      <a class="thumbnail img-responsive">
-                        <img src="./images/poster_8875.png">
-                      </a>
-                      <div class="form-group">
-                        <h4>
-                          <b>Tên: </b>
-                        </h4>
-                        <input type="text" class="form-control" id="editName" ng-model="filmDetail.name" value="{{filmDetail.name}}">
-                      </div>
-                      <div class="form-group">
-                        <h4>
-                          <b>Năm phát hành:</b></h4>
-                          <select class="form-control" ng-model="filmDetail.createDate" id="editYear">
-                              <option ng-repeat="year in listYear" value="{{year}}">{{year}}</option>
+      <form name="editFilmForm">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <div class="row" style="margin-top:10px">
+                <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-1 col-md-offset-1">
+                  <form class="container-fluid" role="form">
+                    <fieldset>
+                      <div>
+                        <h3 class="name-film">
+                          <b>Chỉnh sửa phim</b>
+                        </h3>
+                        <hr class="colorgraph">
+                        <a class="thumbnail img-responsive">
+                          <img src="./images/poster_8875.png">
+                        </a>
+                        <div class="form-group">
+                          <h4>
+                            <b>Tên: </b>
+                          </h4>
+                          <input required type="text" class="form-control" id="editName" ng-model="filmEdit.name" name="editName">
+                        </div>
+                        <div class="form-group">
+                          <h4>
+                            <b>Năm phát hành:</b>
+                          </h4>
+                          <select required class="form-control" ng-model="filmEdit.createDate" id="editYear" name="editYear">
+                            <option ng-repeat="year in listYear" value="{{year}}">{{year}}</option>
                           </select>
-                      </div>
-                      <div class="form-group">
-                        <h4>
-                          <b>Thể loại:</b></h4>
-                          <select class="form-control" ng-model="filmDetail.typeFilm" id="editType">
-                              <option ng-repeat="type in listTypeFilms" value="{{type}}">{{type}}</option>
+                        </div>
+                        <div class="form-group">
+                          <h4>
+                            <b>Thể loại:</b>
+                          </h4>
+                          <select required class="form-control" ng-model="filmEdit.typeFilm" id="editType" name="editType">
+                            <option ng-repeat="type in listTypeFilms" value="{{type}}">{{type}}</option>
                           </select>
+                        </div>
+                        <div class="form-group">
+                          <h4>
+                            <b>Đạo diễn:</b>
+                          </h4>
+                          <input required type="text" ng-model="filmEdit.author" name="editAuthor" id="editAuthor" class="form-control">
+                        </div>
+                        <div class="form-group">
+                          <h4>
+                            <b>Nội dung:</b>
+                          </h4>
+                          <textarea required type="text" class="form-control" style="height: 80px" id="editContent" ng-model="filmEdit.content" name="editContent"></textarea>
+                        </div>
+                        <hr class="colorgraph">
+                        <div class="row text-center">
+                          <input type="submit" class="btn btn-success" data-dismiss="modal" ng-disabled="editFilmForm.$invalid" ng-click="clickUpdateFilm(filmEdit)" value="Xác nhận">
+                        </div>
                       </div>
-                      <div class="form-group">
-                        <h4>
-                          <b>Đạo diễn:</b></h4>
-                          <input type="text" ng-model="filmDetail.author" id="editAuthor" class="form-control">
-                      </div>
-                      <div class="form-group">
-                        <h4>
-                          <b>Nội dung:</b></h4>
-                          <textarea type="text" class="form-control" style="height: 80px" id="editContent" ng-model="filmDetail.content"></textarea>
-                      </div>
-                      <hr class="colorgraph">
-                      <div class="row text-center">
-                        <a class="btn btn-success" type="submit" data-dismiss="modal" ng-click="clickUpdateFilm(filmDetail)">Xác nhận</a>
-                      </div>
-                    </div>
-                  </fieldset>
-                </form>
+                    </fieldset>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
