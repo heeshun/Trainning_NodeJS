@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var config = require('./config');
+var formidable = require('formidable');
 
 
 var app = express(),

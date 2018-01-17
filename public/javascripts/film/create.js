@@ -1,5 +1,6 @@
 var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$http', function ($scope, $http) {
 
+  
   $scope.listTypeFilms = [
     'Hành động',
     'Tình cảm',
@@ -19,6 +20,7 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
   $scope.filmAuthor = '';
   $scope.filmContent = '';
   $scope.filmCreater = '';
+  var imageUrl = '';
   var userLoginID = $('#user-id').text().trim();
 
   $scope.user = {
@@ -29,6 +31,7 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
     gender: ''
   };
 
+
   if (userLoginID) {
     $http.get('/api/user/' + userLoginID).then(function (res) {
       if (res.err) {
@@ -36,7 +39,6 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
         return;
       }
       $scope.user.name = res.data.user.name;
-      console.log($scope.user.name);
     });
   }
 
@@ -55,22 +57,51 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
     }
   };
 
+  $('#chooseImage').on('change', function () {
+    var files = $(this).get(0).files;
+    // One or more files selected, process the file upload
+    if (files.length > 0) {
+    // create a FormData object which will be sent as the data payload in the
+    // AJAX request
+      var formData = new FormData();
+
+      // add the files to formData object for the data payload
+      formData.append('sampleFile', files[0], files[0].name);
+      $.ajax({
+        url: '/api/cinema/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          $('#imageUpload').attr('src', data.path);
+          imageUrl = data.path;
+        }
+      });
+      return false;
+    } else {
+      alert('Vui lòng chọn hình ảnh');
+    }
+  });
+
   $scope.clickUploadFilm = function () {
-    console.log(userLoginID);
     if (!$scope) {
       window.location.replace('/');
     }
-    if (!$scope.filmName || !$scope.filmType || !$scope.filmYear || !$scope.filmAuthor || !$scope.filmContent) {
+    if (!$scope.filmName || !$scope.filmType || !$scope.filmYear || !$scope.filmAuthor || !$scope.filmContent || !imageUrl) {
       return;
     }
+
     var film = {
       name: $scope.filmName,
       typeFilm: $scope.filmType,
       createDate: $scope.filmYear,
       author: $scope.filmAuthor,
       content: $scope.filmContent,
+      filmImage: imageUrl,
       userCreate: userLoginID
     };
+
     $http.post('api/cinema/create', film).then(function (film) {
       $scope.error = false;
       $scope.film = film;
@@ -79,4 +110,5 @@ var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$
     });
 
   };
+
 }]);

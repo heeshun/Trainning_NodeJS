@@ -27,7 +27,12 @@ var FilmSchema = new Schema({
   userCreate: {
     type: String,
     default: ''
+  },
+  filmImage: {
+    type: String,
+    default: ''
   }
+
 });
 
 module.exports = mongoose.model('Films', FilmSchema);

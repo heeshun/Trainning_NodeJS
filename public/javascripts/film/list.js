@@ -1,4 +1,5 @@
 var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$http', function ($scope, $http) {
+  var imageUrl = '';
   $scope.listFilm = [];
   $scope.listFilmStable = [];
   $scope.listTypeFilms = [
@@ -65,9 +66,44 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     $scope.filmEdit = angular.copy($scope.filmDetail);
   };
 
+
+  $('#chooseImage').on('change', function () {
+    var files = $(this).get(0).files;
+    // One or more files selected, process the file upload
+    if (files.length > 0) {
+    // create a FormData object which will be sent as the data payload in the
+    // AJAX request
+      var formData = new FormData();
+
+      // add the files to formData object for the data payload
+      formData.append('sampleFile', files[0], files[0].name);
+      $.ajax({
+        url: '/api/cinema/upload',
+        type: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+          $('#imageUpload').attr('src', data.path);
+          imageUrl = data.path;
+          $scope.filmEdit.filmImage = data.path;
+        }
+      });
+      return false;
+    } else {
+      alert('Vui lòng chọn hình ảnh');
+    }
+  });
+
   $scope.clickUpdateFilm = function (filmEdit) {
     if (!$scope.filmEdit.name || !$scope.filmEdit.typeFilm || !$scope.filmEdit.createDate || !$scope.filmEdit.author || !$scope.filmEdit.content) {
       return;
+    }
+    if (($scope.filmDetail.name == $scope.filmEdit.name) && ($scope.filmDetail.typeFilm == $scope.filmEdit.typeFilm)
+    && ($scope.filmDetail.createDate == $scope.filmEdit.createDate) && ($scope.filmDetail.author == $scope.filmEdit.author)
+    && ($scope.filmDetail.content == $scope.filmEdit.content) && ($scope.filmDetail.filmImage == $scope.filmEdit.filmImage)) {
+      alert('Không có thông tin nào thay đổi');
+      return false;
     }
     $scope.loading = true;
     var film = {
@@ -76,6 +112,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       typeFilm: $scope.filmEdit.typeFilm,
       createDate: $scope.filmEdit.createDate,
       author: $scope.filmEdit.author,
+      filmImage: $scope.filmEdit.filmImage,
       content: $scope.filmEdit.content
     };
     $scope.filmDetail.name = $scope.filmEdit.name;
@@ -83,12 +120,14 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     $scope.filmDetail.typeFilm = $scope.filmEdit.typeFilm;
     $scope.filmDetail.createDate = $scope.filmEdit.createDate;
     $scope.filmDetail.content = $scope.filmEdit.content;
+    $scope.filmDetail.filmImage = $scope.filmEdit.filmImage;
     $scope.filmDetail._id = $scope.filmEdit._id;
     $http.put('/api/cinema/update', film).then(function () {
       $scope.error = false;
       $scope.film = film;
       $scope.loading = false;
       alert('Chỉnh sửa thành công');
+      $('#filmEdit').modal('hide');
     });
   };
 

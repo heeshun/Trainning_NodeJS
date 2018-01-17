@@ -192,7 +192,7 @@
     <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 my-portfolio-item hvr-grow animated FadeIn" style="font-size: 20px; text-align: center; height: 350px"
       ng-repeat="film in listFilm">
       <a href="#" class="thumbnail img-responsive" data-toggle="modal" data-target="#filmDetail" ng-click="clickViewDetail($index)">
-        <img src="./images/poster_8875.png">
+        <img src="{{film.filmImage}}">
       </a>
       <div class="detail">
         <h3 class="name-film">{{film.name}} ({{film.createDate}})</h3>
@@ -214,8 +214,8 @@
                         <b>{{filmDetail.name}}</b>
                       </h2>
                       <hr class="colorgraph">
-                      <a class="thumbnail img-responsive">
-                        <img src="./images/poster_8875.png">
+                      <a class="thumbnail img-responsive" >
+                        <img src="{{filmDetail.filmImage}}" style="width: auto; height: auto">
                       </a>
                       <div class="form-group">
                         <h3>
@@ -267,8 +267,11 @@
                         </h3>
                         <hr class="colorgraph">
                         <a class="thumbnail img-responsive">
-                          <img src="./images/poster_8875.png">
+                          <img src="{{filmEdit.filmImage}}" id="imageUpload" style="width: auto; height: 300px">
                         </a>
+                        <form ref='uploadForm' id='uploadForm' action='/api/cinema/upload' method='post' encType="multipart/form-data">
+                          <input required class="btn btn-info" id="chooseImage" type="file" name="sampleFile" />
+                        </form>
                         <div class="form-group">
                           <h4>
                             <b>Tên: </b>
@@ -305,7 +308,7 @@
                         </div>
                         <hr class="colorgraph">
                         <div class="row text-center">
-                          <input type="submit" class="btn btn-success" data-dismiss="modal" ng-disabled="editFilmForm.$invalid" ng-click="clickUpdateFilm(filmEdit)"
+                          <input type="submit" class="btn btn-success" .sendToUser ng-disabled="editFilmForm.$invalid" ng-click="clickUpdateFilm(filmEdit)"
                             value="Xác nhận">
                         </div>
                       </div>
