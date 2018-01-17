@@ -16,19 +16,24 @@
     background-image: linear-gradient(to right, #c4e17f, #c4e17f 12.5%, #f7fdca 12.5%, #f7fdca 25%, #fecf71 25%, #fecf71 37.5%, #f0776c 37.5%, #f0776c 50%, #db9dbe 50%, #db9dbe 62.5%, #c49cde 62.5%, #c49cde 75%, #669ae1 75%, #669ae1 87.5%, #62c2e4 87.5%, #62c2e4);
   }
   
-  #txtPassword{
-    -webkit-text-security:disc;
+#txtPassword{
+	-webkit-text-security:disc;	
 }
+
+.modal { overflow: auto !important; }
+
 .loader{
 	margin: 0;
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
-    right: 0;
+	right: 0;
+	
     background: #333;
     background: -webkit-gradient(radial, center center, 120, center center, 900, from(#33495E), to(#2E2329));
-    background: -moz-radial-gradient(circle, #33495E, #2E2329);
+	background: -moz-radial-gradient(circle, #33495E, #2E2329);
+	opacity: 0.7;
     z-index: 1;
     display: flex;
     flex-direction: row;

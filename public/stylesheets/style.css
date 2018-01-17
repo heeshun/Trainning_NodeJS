@@ -10,3 +10,7 @@ a {
 .no-padding {
   padding: 0;
 }
+
+.modal {
+  overflow-y:auto;
+}

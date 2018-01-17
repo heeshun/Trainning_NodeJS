@@ -10,7 +10,7 @@
   </head>
   <div class="container-fluid my-portfolio" ng-controller="listCtrl">
     <div class="loader" ng-show="loading">
-      <h1 style="color: black">LOADING</h1>
+      <h1>LOADING</h1>
       <span></span>
       <span></span>
       <span></span>
@@ -52,7 +52,7 @@
               <a class="navbar-brand hvr-sweep-to-right" href="#" style="color: aliceblue" data-toggle="modal" data-target="#loginModal">Đăng Nhập</a>
             </li>
             <li ng-show="user.name">
-              <a class="navbar-brand" href="#" style="color: aliceblue">{{ 'Chào, ' + user.name}}</a>
+              <label class="navbar-brand" style="color: aliceblue">{{ 'Chào, ' + user.name}}</label>
             </li>
             <li ng-show="user.name">
               <a class="navbar-brand hvr-sweep-to-right" href="#" ng-click="clickLogout()" style="color: aliceblue">Thoát</a>
@@ -120,30 +120,30 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <div class="row" style="margin-top:10px">
                       <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-1 col-md-offset-1">
-                        <form class="container-fluid" role="form">
+                        <form class="container-fluid" role="form" autocomplete="off">
                           <fieldset>
                             <h2>Đăng Ký</h2>
                             <hr class="colorgraph">
                             <div class="form-group">
-                              <input required="required" type="text" name="name" id="name" class="form-control input-lg" ng-model="userName" placeholder="Tên">
+                              <input required="required" type="text" name="name" id="name" class="form-control input-lg" ng-model="userName" placeholder="Tên*">
                             </div>
                             <div class="form-group">
                               <input required="required" type="email" name="email" id="emailRegister" class="form-control input-lg" ng-model="userEmail"
-                                placeholder="Email" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                                placeholder="Email*" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                             </div>
                             <div class="form-group">
                               <input required="required" type="password" name="passwordRegister" id="passwordRegister" class="form-control input-lg" ng-model="userPassword"
-                                placeholder="Mật khẩu">
+                                placeholder="Mật khẩu*">
                             </div>
                             <div class="form-group">
-                              <select required class="form-control input-lg" style="color: gray;" ng-model="userAge" id="userAge">
-                                <option disabled selected style="color: gray;" value="">Năm sinh</option>
+                              <select required class="form-control input-lg" style="color: rgb(161, 157, 157);" ng-model="userAge" id="userAge">
+                                <option disabled selected style="color: rgb(161, 157, 157);" value="">Năm sinh*</option>
                                 <option ng-repeat="age in listOld" value="{{age}}">{{age}}</option>
                               </select>
                             </div>
                             <div class="form-group">
-                              <select required="required" class="form-control input-lg" style="color: gray;" ng-model="userGender" id="gender">
-                                <option disabled selected style="color: gray;" value="">Giới Tính </option>
+                              <select class="form-control input-lg" style="color: rgb(161, 157, 157);" ng-model="userGender" id="gender">
+                                <option selected style="color: rgb(161, 157, 157);" value=''>Giới Tính </option>
                                 <option ng-repeat="gender in listGender" value="{{gender}}">{{gender}}</option>
                               </select>
                             </div>
@@ -235,7 +235,7 @@
                       </div>
                       <hr class="colorgraph">
                       <div class="row" ng-show="user._id == filmDetail.userCreate">
-                        <a href="" data-toggle="modal" data-target="#filmEdit" data-dismiss="modal" class="btn btn-link pull-right">Chỉnh sửa</a>
+                        <input data-toggle="modal" data-target="#filmEdit" data-dismiss="modal" class="btn btn-info pull-right" value="Chỉnh sửa">
                       </div>
                     </div>
                   </fieldset>

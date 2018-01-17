@@ -16,3 +16,6 @@
 .form-margin .form-group textarea{
     height: 100px;
 }
+.form-margin .form-group small {
+    color: red;
+}

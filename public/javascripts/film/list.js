@@ -92,10 +92,12 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
     });
   };
 
+  $scope.userGender = '';
   $scope.clickRegister = function () {
-    if (!$scope.userName || !$scope.userEmail || !$scope.userPassword || !$scope.userAge || !$scope.userGender) {
+    if (!$scope.userName || !$scope.userEmail || !$scope.userPassword || !$scope.userAge) {
       return;
     }
+    $scope.loading = true;
     var user = {
       name: $scope.userName,
       email: $scope.userEmail,
@@ -104,7 +106,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       gender: $scope.userGender
     };
     $http.post('api/user/create', user).then(function (res) {
-      $scope.loading = true;
+      $scope.loading = false;
       if (res.data.err) {
         alert('Xin vui lòng thử lại');
         return;
@@ -113,7 +115,6 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
         return;
       }
       $scope.user = res.data.user;
-      $scope.loading = false;
       alert('Đăng kí thành công');
       $('#registerModal').modal('hide');
     });
