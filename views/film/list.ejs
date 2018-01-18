@@ -52,7 +52,7 @@
               <a class="navbar-brand hvr-sweep-to-right" href="#" style="color: aliceblue" data-toggle="modal" data-target="#loginModal">Đăng Nhập</a>
             </li>
             <li ng-show="user.name">
-              <label class="navbar-brand" style="color: aliceblue">{{ 'Chào, ' + user.name}}</label>
+              <text class="navbar-brand" style="color: aliceblue">{{ 'Chào, ' + user.name}}</text>
             </li>
             <li ng-show="user.name">
               <a class="navbar-brand hvr-sweep-to-right" href="#" ng-click="clickLogout()" style="color: aliceblue">Thoát</a>
@@ -82,11 +82,14 @@
                               <input required="required" type="password" name="password" id="password" class="form-control input-lg" ng-model="userPassword"
                                 placeholder="Mật khẩu">
                             </div>
-                            <span class="form-check">
-                              <input type="checkbox" name="rememberChkBox" id="rememberChkBox" checked="checked">
-                              <label>Ghi nhớ tài khoản</label>
-                              <!-- <a href="" class="btn btn-link pull-right">Quên mật khẩu?</a> -->
-                            </span>
+                            <div class="row form-group">
+                                <span class="form-check">
+                                    <input type="checkbox" name="rememberChkBox" id="rememberChkBox" checked="checked">
+                                    <label>Ghi nhớ tài khoản</label>
+                                  </span>
+                                <a style="margin-top: -6px; color: black" class="btn btn-link pull-right" data-toggle="modal" data-target="#registerModal" data-dismiss="modal"><b>Quên mật khẩu?</b></a>
+                            </div>
+                            
                             <hr class="colorgraph">
                             <div class="row">
                               <div class="col-xs-6 col-sm-6 col-md-6">
@@ -270,7 +273,7 @@
                           <img src="{{filmEdit.filmImage}}" id="imageUpload" style="width: auto; height: 300px">
                         </a>
                         <form ref='uploadForm' id='uploadForm' action='/api/cinema/upload' method='post' encType="multipart/form-data">
-                          <input required class="btn btn-info" id="chooseImage" type="file" name="sampleFile" />
+                          <input required class="btn btn-info form-control" id="chooseImage" type="file" name="sampleFile" />
                         </form>
                         <div class="form-group">
                           <h4>
@@ -309,7 +312,7 @@
                         <hr class="colorgraph">
                         <div class="row text-center">
                           <input type="submit" class="btn btn-success" .sendToUser ng-disabled="editFilmForm.$invalid" ng-click="clickUpdateFilm(filmEdit)"
-                            value="Xác nhận">
+                            value="Hoàn tất">
                         </div>
                       </div>
                     </fieldset>

@@ -153,9 +153,9 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
         alert('Email này đã được đăng kí');
         return;
       }
-      $scope.user = res.data.user;
-      alert('Đăng kí thành công');
       $('#registerModal').modal('hide');
+      location.reload();
+      $scope.user = res.data.user;
     });
   };
 
@@ -186,9 +186,8 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
         alert('Server lỗi, vui lòng thử lại sau');
       } else if (res.data.message1) {
         alert('Mật khẩu không đúng');
-      } else {
-        alert('Đăng nhập thành công');
       }
+      location.reload();
       $scope.loading = false;
       $scope.user.name = res.data.user.name;
       $scope.user._id = res.data.user._id;
@@ -203,6 +202,7 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
         if (res.data.message) {
           $scope.user = {};
           $scope.loading = false;
+          location.reload();
         } else {
           alert('Vui lòng thử lại');
         }

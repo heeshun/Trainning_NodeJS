@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var config = require('./config');
 var formidable = require('formidable');
+const nodemailer = require('nodemailer');
 
 
 var app = express(),

@@ -1,6 +1,5 @@
 var app = angular.module('appCinema', []).controller('createCtrl', ['$scope', '$http', function ($scope, $http) {
 
-  
   $scope.listTypeFilms = [
     'Hành động',
     'Tình cảm',
