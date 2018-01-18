@@ -8,6 +8,8 @@ var session = require('express-session');
 var config = require('./config');
 var formidable = require('formidable');
 const nodemailer = require('nodemailer');
+const keys = require('./config');
+var randomstring = require('randomstring');
 
 
 var app = express(),
@@ -19,6 +21,9 @@ var app = express(),
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/future_cinema');
+// mongoose.connect(keys.mongodb.mongoURI, function () {
+//   console.log('database connected');
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

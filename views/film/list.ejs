@@ -87,7 +87,7 @@
                                     <input type="checkbox" name="rememberChkBox" id="rememberChkBox" checked="checked">
                                     <label>Ghi nhớ tài khoản</label>
                                   </span>
-                                <a style="margin-top: -6px; color: black" class="btn btn-link pull-right" data-toggle="modal" data-target="#registerModal" data-dismiss="modal"><b>Quên mật khẩu?</b></a>
+                                <a style="margin-top: -6px; color: black" class="btn btn-link pull-right" data-toggle="modal" data-target="#resetPassModal" data-dismiss="modal"><b>Quên mật khẩu?</b></a>
                             </div>
                             
                             <hr class="colorgraph">
@@ -108,6 +108,49 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                   </div>
                 </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Modal Reset Password-->
+          <div class="modal fade" id="resetPassModal" role="dialog">
+            <form name="resetPassModal">
+              <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="row" style="margin-top:10px">
+                      <div class="col-xs-12 col-sm-8 col-md-10 col-sm-offset-1 col-md-offset-1">
+                        <form class="container-fluid" role="form" autocomplete="off">
+                          <fieldset>
+                            <h2>Đăng Ký</h2>
+                            <hr class="colorgraph">
+                            <div class="form-group">
+                              <input required="required" type="email" name="emailReset" id="emailReset" class="form-control input-lg" ng-model="emailReset"
+                                placeholder="Email*" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+                            </div>
+                            <hr class="colorgraph">
+                            <div class="row">
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input data-toggle="modal" data-target="#loginModal" data-dismiss="modal" class="btn btn-lg btn-info btn-block"
+                                  value="Quay lại Đăng Nhập">
+                              </div>
+                              <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input type="submit" class="btn btn-lg btn-success btn-block" ng-click="clickResetPass()" value="Đặt lại mật khẩu">
+                              </div>
+                            </div>
+                          </fieldset>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+
               </div>
             </form>
           </div>

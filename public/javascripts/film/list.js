@@ -179,13 +179,20 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
       $scope.loading = true;
       if (res.data.err) {
         alert('Vui lòng thử lại');
+        $scope.loading = false;
         return;
       } else if (res.data.err1) {
         alert('Email này không tồn tại');
+        $scope.loading = false;
+        return;
       } else if (res.data.err2) {
         alert('Server lỗi, vui lòng thử lại sau');
+        $scope.loading = false;
+        return;
       } else if (res.data.message1) {
         alert('Mật khẩu không đúng');
+        $scope.loading = false;
+        return;
       }
       location.reload();
       $scope.loading = false;
@@ -208,6 +215,25 @@ var app = angular.module('appCinema', []).controller('listCtrl', ['$scope', '$ht
         }
       });
     }
+  };
+
+  $scope.clickResetPass = function () {
+    if (!$scope.emailReset) {
+      return;
+    }
+    var email = {
+      email: $scope.emailReset
+    };
+    $http.post('/api/auth/reset', email).then(function (res) {
+      if (res.data.err || res.data.error) {
+        alert('Vui lòng thử lại');
+      } else if (res.data.err1) {
+        alert('Email này chưa được đăng kí');
+      } else if (res.data.message) {
+        alert('Vui lòng kiểm tra email');
+        $('#resetPassModal').modal('hide');
+      }
+    });
   };
 
   $http.get('/api/cinema').then(function (res) {

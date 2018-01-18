@@ -5,7 +5,6 @@ var mongoose = require('mongoose'),
 var config = require('../../config');
 var CryptoJS = require('crypto-js');
 var jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 
 
 exports.createNewUser = function (req, res) {
@@ -42,6 +41,3 @@ exports.getUser = function (req, res) {
   });
 };
 
-exports.resetPassword = function (req, res) {
-
-};
