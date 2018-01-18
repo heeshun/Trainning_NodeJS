@@ -11,7 +11,6 @@ const nodemailer = require('nodemailer');
 
 
 var app = express(),
-  port = process.env.PORT || 3000,
   mongoose = require('mongoose'),
   Film = require('./api/models/Cinema'),
   User = require('./api/models/User');
