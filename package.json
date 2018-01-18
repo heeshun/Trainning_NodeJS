@@ -1,6 +1,9 @@
 {
   "name": "trainning-nodejs",
   "version": "0.0.0",
+  "engines": {
+    "node": "8.9.4"
+  },
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -16,7 +19,7 @@
     "cookie-parser": "~1.4.3",
     "crypto-js": "^3.1.9-1",
     "debug": "~2.6.9",
-    "ejs-locals": "^1.0.2",
+    "ejs-locals": "^1.0 .2",
     "eslint": "^4.15.0",
     "eslint-config-airbnb": "^16.1.0",
     "express": "^4.15.5",
